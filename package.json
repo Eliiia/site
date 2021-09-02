@@ -1,0 +1,22 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "site",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grzesiekek/site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Grzesiekek/site/issues"
+  },
+  "homepage": "https://github.com/Grzesiekek/site#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
