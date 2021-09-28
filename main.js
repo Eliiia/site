@@ -3,10 +3,14 @@ const fs = require("fs")
 
 const conf = require("./config.json")
 
-http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-
-    if(req.url == "/") req.url = "/index.html"
-
-    res.end(fs.readFileSync(`${conf.public}${req.url}`));
+http.createServer(function (req, res) {
+    fs.readFile(__dirname + "/www" + req.url, function (err,data) {
+      if (err) {
+        res.writeHead(404);
+        res.end(JSON.stringify(err));
+        return;
+      }
+      res.writeHead(200);
+      res.end(data);
+    });
 }).listen(conf.port);
