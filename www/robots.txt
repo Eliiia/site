@@ -1,0 +1,5 @@
+# enjoy your day <3
+
+User-agent: *
+Allow: /
+# Disallow: 
