@@ -22,7 +22,7 @@ http.createServer((req, res) => {
             if (err) {
                 res.writeHead(404);
 
-                fs.readFile(dir + "/other/error.html", (err,data) => {
+                fs.readFile(dir + "/other/404.html", (err,data) => {
                     res.end(data)
                 })
                 //res.end(JSON.stringify(err))
