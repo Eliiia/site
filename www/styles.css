@@ -1,4 +1,5 @@
 body {
-    background-color: #282828;
+    background-color: #282828; /* maybe consider #1d2021*/
     color: #ebdbb2;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
