@@ -11,17 +11,17 @@ http.createServer((req, res) => {
     fs.readFile(__dirname + conf.dir + req.url, (err,data) => {
         res.setHeader('Content-Type', 'text/html');
 
-      if (err) {
-        res.writeHead(404);
+        if (err) {
+            res.writeHead(404);
 
-        fs.readFile(__dirname + "/other/error.html", (err,data) => {
-            res.end(data)
-        })
-        //res.end(JSON.stringify(err))
-        return
-      }
+            fs.readFile(__dirname + "/other/error.html", (err,data) => {
+                res.end(data)
+            })
+            //res.end(JSON.stringify(err))
+            return
+        }
 
-      res.writeHead(200)
-      res.end(data)
+        res.writeHead(200)
+        res.end(data)
     });
 }).listen(conf.port)
