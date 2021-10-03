@@ -9,13 +9,15 @@ if(conf.fulldir == "") dir = __dirname
 else dir = conf.fulldir
 
 http.createServer((req, res) => {
-    if(req.url.endsWith("/")) req.url += "index.html"
 
     if(conf.knownIPs.hasOwnProperty(req.socket.remoteAddress)) addr = conf.knownIPs[req.socket.remoteAddress]
     else addr = req.socket.remoteAddress
     console.log(`${addr} ${req.method} ${req.url}`)
 
     if(req.method == "GET") {
+        if(req.url.endsWith("/")) req.url += "index.html"
+        else if(!req.url.includes(".")) req.url += ".html"
+
         fs.readFile(dir + conf.dir + req.url, (err,data) => {
             res.setHeader('Content-Type', 'text/html');
 
