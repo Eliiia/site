@@ -35,10 +35,35 @@ http.createServer((req, res) => {
     }
 
     if(req.method == "POST") {
-        res.writeHead(405);
+        let body = "";
 
-        fs.readFile(dir + "/other/post.html", (err,data) => {
-            res.end(data)
+        req.on("data", (chunk) => {
+            body += `${chunk}`
+            
+            if(body.length > 1e6) res.end() // yes, i know i need a proper way of doing this but whatever
+        })
+
+        req.on("end", async () => {
+            console.log("\tPOST request finished")
+
+            res.end("thank u.")
+
+            if(req.url == "/ip") { 
+                if(conf.knownIPs[req.socket.remoteAddress]) {
+                    return console.log("\tlmao")
+                }
+
+                let s = body.split("=")
+                conf.knownIPs[addr] = s[1]
+                fs.writeFileSync("./config.json", JSON.stringify(conf, null, 4))
+            }
+            else {
+                res.writeHead(405);
+    
+                fs.readFile(dir + "/other/post.html", (err,data) => {
+                    res.end(data)
+                })
+            }
         })
     }
 }).listen(conf.port, conf.hostname)
