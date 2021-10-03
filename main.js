@@ -31,7 +31,7 @@ http.createServer((req, res) => {
                 return
             }
 
-            data = data.toString().split("INSERT_IP").join(req.socket.remoteAddress)
+            if(req.url.endsWith(".html")) data = data.toString().split("INSERT_IP").join(req.socket.remoteAddress)
 
             res.writeHead(200)
             res.end(data)
@@ -72,3 +72,5 @@ http.createServer((req, res) => {
         })
     }
 }).listen(conf.port, conf.hostname)
+
+console.log("started :)")
