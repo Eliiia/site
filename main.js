@@ -19,7 +19,8 @@ http.createServer((req, res) => {
         else if(!req.url.includes(".")) req.url += ".html"
 
         fs.readFile(dir + conf.dir + req.url, (err,data) => {
-            res.setHeader('Content-Type', 'text/html');
+            if(req.url.endsWith(".html")) res.setHeader("Content-Type", "text/html")
+            else res.setHeader("Content-Type", "text/plain")
 
             if (err) {
                 res.writeHead(404);
