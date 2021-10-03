@@ -48,11 +48,10 @@ http.createServer((req, res) => {
         req.on("end", async () => {
             console.log("\tPOST request finished")
 
-            res.end("thank u.")
-
             if(req.url == "/ip") { 
                 if(conf.knownIPs[req.socket.remoteAddress]) {
-                    return console.log("\tlmao")
+                    console.log("\tlmao")
+                    return res.end()
                 }
 
                 let s = body.split("=")
@@ -66,6 +65,8 @@ http.createServer((req, res) => {
                     res.end(data)
                 })
             }
+
+            res.end("thank u.")
         })
     }
 }).listen(conf.port, conf.hostname)
