@@ -87,4 +87,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# greg stuff
 config.json
+www/neofetch.txt

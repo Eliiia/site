@@ -32,7 +32,9 @@ http.createServer((req, res) => {
                 return
             }
 
-            if(req.url.endsWith(".html")) data = data.toString().split("INSERT_IP").join(req.socket.remoteAddress)
+            if(req.url.endsWith(".html")) {
+                data = data.toString().replace("INSERT_IP", req.socket.remoteAddress)
+            }
 
             res.writeHead(200)
             res.end(data)
