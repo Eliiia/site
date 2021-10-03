@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo nodemon main.js
+sudo nodemon main.js --ignore ./config.json
