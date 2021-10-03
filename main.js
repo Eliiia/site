@@ -21,8 +21,6 @@ http.createServer((req, res) => {
         fs.readFile(dir + conf.dir + req.url, (err,data) => {
             res.setHeader('Content-Type', 'text/html');
 
-            data = data.toString().split("INSERT_IP").join(req.socket.remoteAddress)
-
             if (err) {
                 res.writeHead(404);
 
@@ -32,6 +30,8 @@ http.createServer((req, res) => {
                 //res.end(JSON.stringify(err))
                 return
             }
+
+            data = data.toString().split("INSERT_IP").join(req.socket.remoteAddress)
 
             res.writeHead(200)
             res.end(data)
