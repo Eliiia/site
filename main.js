@@ -10,6 +10,8 @@ else dir = conf.fulldir
 
 http.createServer((req, res) => {
 
+    req.url = decodeURI(req.url)
+
     if(conf.knownIPs.hasOwnProperty(req.socket.remoteAddress)) addr = conf.knownIPs[req.socket.remoteAddress]
     else addr = req.socket.remoteAddress
     console.log(`${addr} ${req.method} ${req.url}`)
