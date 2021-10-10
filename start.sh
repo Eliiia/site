@@ -2,4 +2,4 @@
 
 rm www/neofetch.txt
 neofetch --stdout >> www/neofetch.txt
-sudo nodemon main.js --ignore ./config.json
+sudo nodemon main.js --ignore ./config.json --ignore ./www/
