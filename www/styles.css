@@ -24,7 +24,12 @@ li::before {
     height: 50px;
 }
 
-button, input[type=text] {
+button, input[type=text], input[type=submit], input[type=password] {
+    font-size: 0.8em;
     background-color: #1d2021;
-    color: #ebdbb2
+    color: #ebdbb2;
+}
+
+.hidden {
+    display: none;
 }
