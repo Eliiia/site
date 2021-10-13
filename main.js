@@ -3,10 +3,7 @@ const fs = require("fs")
 
 const conf = require("./config.json")
 
-let dir
-
-if(conf.fulldir == "") dir = __dirname
-else dir = conf.fulldir
+const dir = __dirname+"/www"
 
 http.createServer((req, res) => {
 
@@ -25,7 +22,7 @@ http.createServer((req, res) => {
         if(req.url.endsWith("/")) req.url += "index.html"
         else if(!req.url.includes(".")) req.url += ".html"
 
-        fs.readFile(dir + conf.dir + req.url, (err,data) => {
+        fs.readFile(dir + req.url, (err,data) => {
             if(req.url.endsWith(".html")) res.setHeader("Content-Type", "text/html")
             else res.setHeader("Content-Type", "text/plain")
 
@@ -35,7 +32,6 @@ http.createServer((req, res) => {
                 fs.readFile(dir + "/other/404.html", (err,data) => {
                     res.end(data)
                 })
-                //res.end(JSON.stringify(err))
                 return
             }
 
@@ -77,12 +73,12 @@ http.createServer((req, res) => {
                 
                 console.log("\tfile uploaded")
 
-                fs.writeFileSync(`${dir}${conf.dir}/downloads/${filename}`, body, "utf-8", {recursive:true})
+                fs.writeFileSync(`${dir}/downloads/${filename}`, body, "utf-8", {recursive:true})
             }
             else {
                 res.writeHead(405);
     
-                fs.readFile(dir + "/other/post.html", (err,data) => {
+                fs.readFile(__dirname + "/other/post.html", (err,data) => {
                     res.end(data)
                 })
             }
