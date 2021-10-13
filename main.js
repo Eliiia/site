@@ -95,7 +95,9 @@ function server(req, res) {
     }
 }
 
-http.createServer(server).listen(conf.http, conf.hostname, () => {
+http.createServer((req, res) => {
+    res.writeHead(308, {Location: `https://${conf.domain}${req.url}`}).end()
+}).listen(conf.http, conf.hostname, () => {
     console.log(`cool http server running at http://${conf.hostname}:${conf.http}/`)
 })
 https.createServer(httpsOptions, server).listen(conf.https, conf.hostname, () => {
