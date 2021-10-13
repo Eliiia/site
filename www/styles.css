@@ -29,3 +29,7 @@ button, input[type=text], input[type=submit], input[type=password] {
 .hidden {
     display: none;
 }
+
+img {
+    width: auto
+}
