@@ -1,11 +1,16 @@
 const http = require('http')
+const https = require("https")
 const fs = require("fs")
 
 const conf = require("./config.json")
 
 const dir = __dirname+"/www"
+const httpsOptions = {
+    key: fs.readFileSync(conf.key),
+    cert: fs.readFileSync(conf.cert)
+}
 
-http.createServer((req, res) => {
+function server(req, res) {
 
     req.url = decodeURI(req.url)
 
@@ -88,6 +93,13 @@ http.createServer((req, res) => {
             res.end()
         })
     }
-}).listen(conf.port, conf.hostname)
+}
+
+http.createServer(server).listen(conf.http, conf.hostname, () => {
+    console.log(`cool http server running at http://${conf.hostname}:${conf.http}/`)
+})
+https.createServer(httpsOptions, server).listen(conf.https, conf.hostname, () => {
+    console.log(`cool https server running at https://${conf.hostname}:${conf.https}/`)
+})
 
 console.log("started :)")

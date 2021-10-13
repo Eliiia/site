@@ -5,3 +5,6 @@ node_modules/
 config.json
 www/neofetch.txt
 www/downloads/*
+
+# hidden folder for all sorts of stuff
+hidden/
