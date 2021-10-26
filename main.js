@@ -12,6 +12,9 @@ const httpsOptions = {
 
 function server(req, res) {
 
+    // redirects for historic pages:
+    if(req.url.startsWith("/greg/")) { return res.writeHead(308, {Location: `https://${conf.domain}${req.url.replace("/greg/", "/me/")}`}).end();}
+
     req.url = decodeURI(req.url)
 
     if(conf.knownIPs.hasOwnProperty(req.socket.remoteAddress)) addr = conf.knownIPs[req.socket.remoteAddress]
