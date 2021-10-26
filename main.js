@@ -55,7 +55,7 @@ function server(req, res) {
         req.on("data", (chunk) => {
             body += chunk
 
-            if(body.length > 1e6) res.end() // yes, i know i need a proper way of doing this but whatever
+            if(body.length > 1e6) res.end()
         })
 
         req.on("end", async () => {
