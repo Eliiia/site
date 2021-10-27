@@ -13,7 +13,8 @@ const httpsOptions = {
 function server(req, res) {
 
     // redirects for historic pages:
-    if(req.url.startsWith("/greg/")) { return res.writeHead(308, {Location: `https://${conf.domain}${req.url.replace("/greg/", "/me/")}`}).end();}
+    if(req.url.startsWith("/greg/")) return res.writeHead(308, {Location: `https://${conf.domain}${req.url.replace("/greg/", "/elia/")}`}).end()
+    if(req.url.startsWith("/me/")) return res.writeHead(308, {Location: `https://${conf.domain}${req.url.replace("/me/", "/elia/")}`}).end()
 
     req.url = decodeURI(req.url)
 
