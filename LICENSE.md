@@ -1,2 +1,2 @@
 
-Copyright (C) 2021 Grzesiekek
+Copyright (C) 2021 Eliiia

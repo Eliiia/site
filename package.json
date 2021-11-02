@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Grzesiekek/site.git"
+    "url": "git+https://github.com/Eliiia/site.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Grzesiekek/site/issues"
+    "url": "https://github.com/Eliiia/site/issues"
   },
-  "homepage": "https://github.com/Grzesiekek/site#readme",
+  "homepage": "https://github.com/Eliiia/site#readme",
   "dependencies": {
     "express": "^4.17.1"
   }
