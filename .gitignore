@@ -1,7 +1,7 @@
 # Dependency directories
 node_modules/
 
-# greg stuff
+# elia stuff
 config.json
 www/neofetch.txt
 www/downloads/*
