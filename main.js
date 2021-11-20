@@ -90,10 +90,6 @@ function server(req, res) {
 
             res.end()
         })
-
-        req.on("end", async () => {
-
-        })
     }
 }
 
