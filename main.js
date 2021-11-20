@@ -1,6 +1,7 @@
 const http = require('http')
 const https = require("https")
 const fs = require("fs")
+const formidable = require("formidable")
 
 const conf = require("./config.json")
 
@@ -54,31 +55,24 @@ function server(req, res) {
     }
 
     if(req.method == "POST") {
-        let body = "";
 
-        req.on("data", (chunk) => {
-            body += chunk
+        let form = new formidable.IncomingForm()
 
-            if(body.length > 1e6) res.end()
-        })
-
-        req.on("end", async () => {
+        form.parse(req, (err, fields, files) => {
             if(req.url == "/ip") { 
+                console.log(fields)
+
                 if(conf.knownIPs[req.socket.remoteAddress]) {
                     console.log("\tlmao")
                 }
 
-                let s = body.toString().split("=")
-                conf.knownIPs[addr] = s[1]
+                conf.knownIPs[addr] = fields["name"]
                 fs.writeFileSync("./config.json", JSON.stringify(conf, null, 4))
             }
             else if(req.url == "/upload/") {
                 if(!conf.whitelist.includes(req.socket.remoteAddress)) return res.end()
 
-                body = body.split("\n")
-                let filename = body[1].split('"')[3]
-                delete body[0]; delete body[1]; delete body[2]; delete body[body.length -2]
-                body = body.join("\n")
+                console.log(files)
                 
                 console.log("\tfile uploaded")
 
@@ -95,6 +89,10 @@ function server(req, res) {
             console.log("\tPOST request finished")
 
             res.end()
+        })
+
+        req.on("end", async () => {
+
         })
     }
 }
