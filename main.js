@@ -17,6 +17,9 @@ function server(req, res) {
     if(req.url.startsWith("/greg/")) return res.writeHead(308, {Location: `https://${conf.domain}${req.url.replace("/greg/", "/elia/")}`}).end()
     if(req.url.startsWith("/me/")) return res.writeHead(308, {Location: `https://${conf.domain}${req.url.replace("/me/", "/elia/")}`}).end()
 
+    // other redirects
+    if(req.url.startsWith("/github/")) return res.writeHead(308, {Location: `https://github.com/Eliiia/${req.url.replace("/github/","")}`}).end()
+
     req.url = decodeURI(req.url)
 
     if(conf.knownIPs.hasOwnProperty(req.socket.remoteAddress)) addr = conf.knownIPs[req.socket.remoteAddress]
