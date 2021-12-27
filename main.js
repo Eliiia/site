@@ -53,7 +53,7 @@ function server(req, res) {
         fs.readFile(dir + req.url, (err,data) => {
             if (err) {
                 res.writeHead(404)
-                res.setHeader("Content-Type", "text/html")
+                //res.setHeader("Content-Type", "text/html")
 
                 fs.readFile(dir + "/other/404.html", (err,data) => {
                     res.end(data)
