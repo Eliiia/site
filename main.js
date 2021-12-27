@@ -5,7 +5,6 @@ const formidable = require("formidable")
 
 const conf = require("./config.json")
 
-const dir = __dirname+"/www"
 const httpsOptions = {
     key: fs.readFileSync(conf.key),
     cert: fs.readFileSync(conf.cert)
@@ -19,6 +18,22 @@ function server(req, res) {
 
     // other redirects
     if(req.url.startsWith("/github/")) return res.writeHead(308, {Location: `https://github.com/Eliiia/${req.url.replace("/github/","")}`}).end()
+
+    // allow access to server files
+    let dir
+    if(req.url.startsWith("/serverfiles/")) { 
+        dir = __dirname
+        req.url = req.url.replace("/serverfiles/", "/")
+    } else dir = __dirname+"/www"
+    if(req.url.startsWith("/hidden")) { // if accesses hidden folder, send 403
+        res.writeHead(403)
+        //res.setHeader("Content-Type", "text/html")
+
+        fs.readFile(__dirname + "/www/other/403.html", (err,data) => {
+            res.end(data)
+        })
+        return
+    }
 
     req.url = decodeURI(req.url)
 
@@ -36,11 +51,9 @@ function server(req, res) {
         else if(!req.url.includes(".")) req.url += ".html"
 
         fs.readFile(dir + req.url, (err,data) => {
-            if(req.url.endsWith(".html")) res.setHeader("Content-Type", "text/html")
-            else res.setHeader("Content-Type", "text/plain")
-
             if (err) {
-                res.writeHead(404);
+                res.writeHead(404)
+                res.setHeader("Content-Type", "text/html")
 
                 fs.readFile(dir + "/other/404.html", (err,data) => {
                     res.end(data)
@@ -48,8 +61,14 @@ function server(req, res) {
                 return
             }
 
+            if(req.url.endsWith(".html")) res.setHeader("Content-Type", "text/html")
+            else res.setHeader("Content-Type", "text/plain")
+
             if(req.url.endsWith(".html")) {
-                data = data.toString().replace("INSERT_IP", req.socket.remoteAddress)
+                // this can likely be much more efficient and well coded, but i'll rewrite this whole thing soon anyway
+                data = data.toString()
+                    .replace("INSERT_IP", req.socket.remoteAddress)
+                    .replace("INSERT_DOMAIN", conf.domain).replace("INSERT_DOMAIN", conf.domain)
             }
 
             res.writeHead(200)
